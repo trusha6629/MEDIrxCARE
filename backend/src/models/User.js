@@ -1,0 +1,108 @@
+import mongoose from "mongoose";
+
+const patientProfileSchema = new mongoose.Schema(
+  {
+    age: Number,
+    gender: String,
+    bloodGroup: String,
+    address: String,
+    totalVisits: {
+      type: Number,
+      default: 0,
+    },
+    lastVisit: Date,
+  },
+  { _id: false },
+);
+
+const doctorProfileSchema = new mongoose.Schema(
+  {
+    specialization: String,
+    experienceYears: Number,
+    location: String,
+    availability: String,
+    onlineFee: {
+      type: Number,
+      default: 50,
+    },
+    offlineFee: {
+      type: Number,
+      default: 80,
+    },
+    rating: {
+      type: Number,
+      default: 4.8,
+    },
+    reviews: {
+      type: Number,
+      default: 100,
+    },
+    patientsCount: {
+      type: Number,
+      default: 0,
+    },
+    nextAvailable: {
+      type: String,
+      default: "Today, 4:00 PM",
+    },
+    bio: String,
+    licenseNumber: String,
+  },
+  { _id: false },
+);
+
+const adminProfileSchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+      default: "System Administrator",
+    },
+    organizationName: {
+      type: String,
+      default: "MediSense Health AI",
+    },
+  },
+  { _id: false },
+);
+
+const userSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      lowercase: true,
+      trim: true,
+    },
+    passwordHash: {
+      type: String,
+      required: true,
+      select: false,
+    },
+    role: {
+      type: String,
+      enum: ["patient", "doctor", "admin"],
+      default: "patient",
+    },
+    phone: String,
+    status: {
+      type: String,
+      enum: ["active", "inactive"],
+      default: "active",
+    },
+    avatar: String,
+    patientProfile: patientProfileSchema,
+    doctorProfile: doctorProfileSchema,
+    adminProfile: adminProfileSchema,
+  },
+  {
+    timestamps: true,
+  },
+);
+
+export const User = mongoose.models.User || mongoose.model("User", userSchema);

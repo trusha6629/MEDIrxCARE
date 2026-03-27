@@ -1,0 +1,23 @@
+{
+  "name": "medisense-backend",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node src/server.js",
+    "start": "node src/server.js",
+    "build": "node -e \"console.log('Backend is plain Node.js and does not require a build step.')\"",
+    "seed": "node src/scripts/seed.js"
+  },
+  "dependencies": {
+    "bcryptjs": "2.4.3",
+    "cors": "2.8.5",
+    "dotenv": "16.4.7",
+    "express": "4.21.2",
+    "jsonwebtoken": "9.0.2",
+    "mongoose": "8.12.1",
+    "morgan": "1.10.0",
+    "openai": "5.10.2",
+    "zod": "3.24.2"
+  }
+}
