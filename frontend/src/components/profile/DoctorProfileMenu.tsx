@@ -1,16 +1,5 @@
-import { useState } from "react";
 import { Link } from "react-router";
-import {
-  User,
-  Calendar,
-  Stethoscope,
-  Users,
-  DollarSign,
-  Lock,
-  Sun,
-  LogOut,
-  ChevronRight,
-} from "lucide-react";
+import { User, Calendar, Stethoscope, Lock, LogOut, ChevronRight } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -21,11 +10,11 @@ import {
   DropdownMenuGroup,
 } from "../common/DropdownMenu";
 import { useAuth } from "../../context/AuthContext";
+import { ThemeModeSelector } from "../theme/ThemeModeSelector";
+import { APP_NAME } from "../../utils/brand";
 
 export function DoctorProfileMenu() {
   const { user, logout } = useAuth();
-  const [theme, setTheme] = useState<"light" | "dark" | "system">("light");
-  const [isOpen, setIsOpen] = useState(false);
 
   const handleLogout = () => {
     if (window.confirm("Are you sure you want to logout?")) {
@@ -33,120 +22,94 @@ export function DoctorProfileMenu() {
     }
   };
 
-  const handleThemeChange = (newTheme: "light" | "dark" | "system") => {
-    setTheme(newTheme);
-  };
-
   const getInitials = () => {
     if (user?.name) {
-      return user.name.split(' ').map(n => n[0]).join('').toUpperCase();
+      return user.name
+        .split(" ")
+        .map((name) => name[0])
+        .join("")
+        .toUpperCase();
     }
-    return "SM";
+    return "AM";
   };
 
   return (
-    <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
+    <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button className="flex items-center gap-3 pl-4 border-l border-gray-200 hover:bg-gray-50 rounded-lg pr-3 py-1.5 transition-colors">
+        <button className="flex items-center gap-3 rounded-xl border-l border-gray-200 py-1.5 pl-4 pr-3 transition-all hover:bg-gray-50 dark:border-slate-800 dark:hover:bg-slate-900">
           <div className="text-right">
-            <p className="text-sm font-medium text-gray-900">{user?.name || "Dr. Sarah Miller"}</p>
-            <p className="text-xs text-gray-500">Cardiologist • ID: #DR7829</p>
+            <p className="text-sm font-medium text-gray-900 dark:text-slate-100">{user?.name || "Dr. Aarav Mehta"}</p>
+            <p className="text-xs text-gray-500 dark:text-slate-400">Cardiologist</p>
           </div>
-          <div className="w-10 h-10 bg-gradient-to-br from-cyan-600 to-teal-500 rounded-xl flex items-center justify-center text-white font-semibold shadow-md shadow-cyan-500/20">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-600 to-teal-500 text-white shadow-md shadow-cyan-500/20">
             {getInitials()}
           </div>
         </button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-72 p-0 mt-2 rounded-2xl shadow-xl border-gray-200">
-        <div className="p-4 bg-gradient-to-br from-cyan-600 to-teal-500 rounded-t-2xl">
+      <DropdownMenuContent align="end" className="mt-2 w-72 rounded-2xl border-gray-200 p-0 shadow-xl dark:border-slate-800 dark:bg-slate-950">
+        <div className="rounded-t-2xl bg-gradient-to-br from-cyan-600 to-teal-500 p-4">
           <div className="flex items-center gap-3">
-            <div className="w-14 h-14 bg-white rounded-xl flex items-center justify-center text-cyan-600 font-bold text-lg shadow-lg">
+            <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-white text-lg font-bold text-cyan-600 shadow-lg">
               {getInitials()}
             </div>
             <div className="text-white">
-              <h3 className="font-semibold text-base leading-tight">{user?.name || "Dr. Sarah Miller"}</h3>
-              <p className="text-xs text-cyan-100 mt-0.5">Doctor Portal</p>
-              <p className="text-xs text-cyan-100 mt-0.5">{user?.email}</p>
+              <h3 className="text-base font-semibold leading-tight">{user?.name || "Dr. Aarav Mehta"}</h3>
+              <p className="mt-0.5 text-xs text-cyan-100">Doctor Portal</p>
+              <p className="mt-0.5 text-xs text-cyan-100">{user?.email}</p>
             </div>
           </div>
         </div>
 
         <div className="p-2">
-          <DropdownMenuLabel className="text-xs text-gray-500 px-3 py-2 font-semibold">
+          <DropdownMenuLabel className="px-3 py-2 text-xs font-semibold text-gray-500 dark:text-slate-400">
             Clinical Tools
           </DropdownMenuLabel>
           <DropdownMenuGroup>
             <DropdownMenuItem asChild>
-              <Link
-                to="/doctor/settings"
-                className="flex items-center gap-3 px-3 py-2.5 cursor-pointer rounded-lg"
-              >
+              <Link to="/doctor/settings" className="flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5">
                 <User className="w-4 h-4 text-gray-500" />
-                <span className="text-sm text-gray-700">Profile & Settings</span>
-                <ChevronRight className="w-4 h-4 text-gray-400 ml-auto" />
+                <span className="text-sm text-gray-700 dark:text-slate-200">Profile & Settings</span>
+                <ChevronRight className="ml-auto w-4 h-4 text-gray-400" />
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link
-                to="/doctor/appointments"
-                className="flex items-center gap-3 px-3 py-2.5 cursor-pointer rounded-lg"
-              >
+              <Link to="/doctor/appointments" className="flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5">
                 <Calendar className="w-4 h-4 text-gray-500" />
-                <span className="text-sm text-gray-700">My Schedule</span>
-                <ChevronRight className="w-4 h-4 text-gray-400 ml-auto" />
+                <span className="text-sm text-gray-700 dark:text-slate-200">My Schedule</span>
+                <ChevronRight className="ml-auto w-4 h-4 text-gray-400" />
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
               <Link
                 to="/doctor/patient-history"
-                className="flex items-center gap-3 px-3 py-2.5 cursor-pointer rounded-lg"
+                className="flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5"
               >
                 <Stethoscope className="w-4 h-4 text-gray-500" />
-                <span className="text-sm text-gray-700">Patient Records</span>
-                <ChevronRight className="w-4 h-4 text-gray-400 ml-auto" />
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem asChild>
-              <Link
-                to="/doctor/earnings"
-                className="flex items-center gap-3 px-3 py-2.5 cursor-pointer rounded-lg"
-              >
-                <DollarSign className="w-4 h-4 text-gray-500" />
-                <span className="text-sm text-gray-700">Earnings</span>
-                <ChevronRight className="w-4 h-4 text-gray-400 ml-auto" />
+                <span className="text-sm text-gray-700 dark:text-slate-200">Patient Records</span>
+                <ChevronRight className="ml-auto w-4 h-4 text-gray-400" />
               </Link>
             </DropdownMenuItem>
           </DropdownMenuGroup>
 
           <DropdownMenuSeparator className="my-2" />
 
-          <DropdownMenuLabel className="text-xs text-gray-500 px-3 py-2 font-semibold">
+          <DropdownMenuLabel className="px-3 py-2 text-xs font-semibold text-gray-500 dark:text-slate-400">
             Account Settings
           </DropdownMenuLabel>
           <DropdownMenuGroup>
-            <DropdownMenuItem className="flex items-center gap-3 px-3 py-2.5 cursor-pointer rounded-lg">
+            <DropdownMenuItem className="flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5">
               <Lock className="w-4 h-4 text-gray-500" />
-              <span className="text-sm text-gray-700">Security</span>
-              <ChevronRight className="w-4 h-4 text-gray-400 ml-auto" />
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              onClick={() => handleThemeChange("light")}
-              className="flex items-center gap-3 px-3 py-2.5 cursor-pointer rounded-lg"
-            >
-              <Sun className="w-4 h-4 text-gray-500" />
-              <span className="text-sm text-gray-700">Theme</span>
-              <div className="ml-auto flex items-center gap-1.5">
-                <span className="text-[10px] text-gray-400 uppercase font-bold">{theme}</span>
-                <ChevronRight className="w-4 h-4 text-gray-400" />
-              </div>
+              <span className="text-sm text-gray-700 dark:text-slate-200">Security</span>
+              <ChevronRight className="ml-auto w-4 h-4 text-gray-400" />
             </DropdownMenuItem>
           </DropdownMenuGroup>
+          <ThemeModeSelector label={`${APP_NAME} Theme`} />
 
           <DropdownMenuSeparator className="my-2" />
 
           <DropdownMenuItem
             onClick={handleLogout}
-            className="flex items-center gap-3 px-3 py-2.5 cursor-pointer rounded-lg text-red-600 hover:text-red-700 hover:bg-red-50 focus:text-red-700 focus:bg-red-50 mb-1"
+            className="mb-1 flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-red-600 hover:bg-red-50 hover:text-red-700 focus:bg-red-50 focus:text-red-700"
           >
             <LogOut className="w-4 h-4" />
             <span className="text-sm font-medium">Logout</span>

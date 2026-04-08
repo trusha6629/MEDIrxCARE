@@ -8,6 +8,7 @@ import { SmartImage } from "../utils/SmartImage";
 import { PulseLogo } from "../components/layout/PulseLogo";
 import { useAuth } from "../context/AuthContext";
 import { api } from "../services/ApiService";
+import { APP_NAME, APP_TAGLINE } from "../utils/brand";
 
 export function LandingPage() {
   const { login } = useAuth();
@@ -70,25 +71,22 @@ export function LandingPage() {
         {/* Left Side - Hero Section */}
         <div className="space-y-8">
           <div className="flex items-center gap-3">
-            <div className="w-14 h-14 bg-gradient-to-br from-cyan-600 to-teal-500 rounded-2xl flex items-center justify-center shadow-lg shadow-cyan-500/20">
-              <PulseLogo className="w-8 h-8 text-white" />
+            <div className="flex h-16 w-16 items-center justify-center rounded-[1.4rem] bg-white shadow-lg ring-1 ring-slate-200">
+              <PulseLogo className="h-11 w-11" />
             </div>
             <div>
-              <h1 className="text-2xl font-semibold text-gray-900">MediSense</h1>
-              <p className="text-sm text-gray-500">Smart Hospital Platform</p>
+              <h1 className="text-2xl font-semibold text-gray-900">{APP_NAME}</h1>
+              <p className="text-sm font-medium uppercase tracking-[0.2em] text-gray-500">{APP_TAGLINE}</p>
             </div>
           </div>
 
           <div className="space-y-5">
             <h2 className="text-5xl lg:text-6xl font-semibold text-gray-900 leading-tight">
               Your Health,<br />
-              <span className="text-gray-700">
-                AI-Powered
-              </span>
+              <span className="text-gray-700">Thoughtfully Connected</span>
             </h2>
             <p className="text-lg text-gray-600 max-w-lg leading-relaxed">
-              Experience seamless healthcare with AI-powered diagnostics, instant appointments, 
-              and comprehensive health monitoring—all in one platform.
+              Manage appointments, consultations, health records, and guided care follow-ups in one polished healthcare workspace.
             </p>
           </div>
 
@@ -191,7 +189,7 @@ export function LandingPage() {
                     <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                     <Input 
                       id="name" 
-                      placeholder="John Doe" 
+                      placeholder="Rohan Verma" 
                       className="pl-12 h-12 rounded-xl bg-gray-50 border-gray-200 focus:border-cyan-500 focus:ring-cyan-500 transition-all"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
@@ -207,7 +205,7 @@ export function LandingPage() {
                   <Input 
                     id="email" 
                     type="email" 
-                    placeholder="john@example.com" 
+                    placeholder="rohan.verma@example.com" 
                     className="pl-12 h-12 rounded-xl bg-gray-50 border-gray-200 focus:border-cyan-500 focus:ring-cyan-500 transition-all"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}

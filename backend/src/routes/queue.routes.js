@@ -2,14 +2,26 @@ import express from "express";
 import { authRequired, requireRole } from "../middleware/auth.js";
 import { QueueEntry } from "../models/QueueEntry.js";
 import { Appointment } from "../models/Appointment.js";
+import { formatDateLabel, formatTimeLabel } from "../utils/helpers.js";
 
 const router = express.Router();
 
-async function buildQueueStatus(doctorId) {
-  const start = new Date();
+function getDayBounds(dateValue = new Date()) {
+  const start = new Date(dateValue);
   start.setHours(0, 0, 0, 0);
-  const end = new Date();
+  const end = new Date(start);
   end.setHours(23, 59, 59, 999);
+
+  return { start, end };
+}
+
+function isSameDay(left, right) {
+  return left.getFullYear() === right.getFullYear() && left.getMonth() === right.getMonth() && left.getDate() === right.getDate();
+}
+
+export async function buildQueueStatus(doctorId, options = {}) {
+  const { queueDate = new Date(), patientId = null, appointment = null } = options;
+  const { start, end } = getDayBounds(queueDate);
 
   const entries = await QueueEntry.find({
     doctor: doctorId,
@@ -21,7 +33,12 @@ async function buildQueueStatus(doctorId) {
   const serving = entries.find((entry) => entry.status === "serving");
   const waiting = entries.filter((entry) => entry.status === "waiting");
   const completed = entries.filter((entry) => entry.status === "completed");
-  const currentServing = serving?.token || completed.at(-1)?.token || 0;
+  const patientEntry = patientId
+    ? entries.find((entry) => entry.patient?._id?.toString() === patientId.toString())
+    : null;
+  const derivedPatientToken = patientEntry?.token || (appointment ? entries.length + 1 : null);
+  const queueIsToday = isSameDay(start, new Date());
+  const currentServing = queueIsToday ? serving?.token || completed.at(-1)?.token || 0 : 0;
   const currentPatient = serving
     ? {
         name: serving.patient?.name || "Current Patient",
@@ -40,6 +57,10 @@ async function buildQueueStatus(doctorId) {
         token: currentServing + 1,
         reason: "Queue clear",
       };
+  const patientsAhead = derivedPatientToken
+    ? Math.max(0, derivedPatientToken - (currentServing > 0 ? currentServing : 1))
+    : waiting.length;
+  const estimatedWaitMinutes = derivedPatientToken ? patientsAhead * 12 : waiting.length * 12;
 
   return {
     currentServing,
@@ -47,30 +68,43 @@ async function buildQueueStatus(doctorId) {
     nextPatient,
     totalToday: entries.length,
     completed: completed.length,
-    estimatedWaitTime: `${Math.max(waiting.length, 1) * 12} mins`,
+    estimatedWaitTime: `${estimatedWaitMinutes} mins`,
     waitingList: waiting.slice(0, 5).map((entry) => ({
       token: entry.token,
       name: entry.patient?.name || "Patient",
       reason: entry.reason,
     })),
+    patientToken: derivedPatientToken,
+    patientStatus: patientEntry?.status || (appointment ? "waiting" : null),
+    patientsAhead,
+    queueDate: start.toISOString(),
+    queueDateLabel: formatDateLabel(start),
+    appointmentDateTime: appointment?.dateTime?.toISOString?.() || null,
+    appointmentTime: appointment?.dateTime ? formatTimeLabel(appointment.dateTime) : null,
+    appointmentReason: appointment?.reason || patientEntry?.reason || "",
+    doctorName: appointment?.doctor?.name || "",
+    isToday: queueIsToday,
   };
 }
 
 router.get("/status", authRequired, async (req, res) => {
   try {
     let doctorId = req.query.doctorId;
+    let patientAppointment = null;
 
     if (req.user.role === "doctor") {
       doctorId = req.user._id;
     }
 
     if (req.user.role === "patient") {
-      const nextAppointment = await Appointment.findOne({
+      patientAppointment = await Appointment.findOne({
         patient: req.user._id,
         type: "offline",
         status: { $in: ["pending", "confirmed", "ongoing"] },
-      }).sort({ dateTime: 1 });
-      doctorId = nextAppointment?.doctor;
+      })
+        .populate("doctor")
+        .sort({ dateTime: 1 });
+      doctorId = patientAppointment?.doctor?._id || patientAppointment?.doctor;
     }
 
     if (!doctorId) {
@@ -91,10 +125,26 @@ router.get("/status", authRequired, async (req, res) => {
         completed: 0,
         estimatedWaitTime: "0 mins",
         waitingList: [],
+        patientToken: null,
+        patientStatus: null,
+        patientsAhead: 0,
+        queueDate: null,
+        queueDateLabel: null,
+        appointmentDateTime: null,
+        appointmentTime: null,
+        appointmentReason: "",
+        doctorName: "",
+        isToday: false,
       });
     }
 
-    return res.json(await buildQueueStatus(doctorId));
+    return res.json(
+      await buildQueueStatus(doctorId, {
+        patientId: req.user.role === "patient" ? req.user._id : null,
+        queueDate: patientAppointment?.dateTime || new Date(),
+        appointment: patientAppointment,
+      }),
+    );
   } catch (error) {
     console.error("Failed to fetch queue status.", error);
     return res.status(500).json({ message: "Failed to fetch queue status." });

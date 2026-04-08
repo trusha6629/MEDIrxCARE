@@ -72,7 +72,7 @@ export function AddPatientPage() {
                   <Input 
                     id="name" 
                     name="name"
-                    placeholder="John Doe" 
+                    placeholder="Rohan Verma" 
                     className="pl-10 h-12 rounded-xl bg-gray-50 border-gray-200 focus:border-cyan-500"
                     value={formData.name}
                     onChange={handleInputChange}
@@ -88,7 +88,7 @@ export function AddPatientPage() {
                     id="email" 
                     name="email"
                     type="email"
-                    placeholder="john.doe@example.com" 
+                    placeholder="rohan.verma@example.com" 
                     className="pl-10 h-12 rounded-xl bg-gray-50 border-gray-200 focus:border-cyan-500"
                     value={formData.email}
                     onChange={handleInputChange}
@@ -103,7 +103,7 @@ export function AddPatientPage() {
                   <Input 
                     id="phone" 
                     name="phone"
-                    placeholder="+1 (555) 000-0000" 
+                    placeholder="+91 98765 42003" 
                     className="pl-10 h-12 rounded-xl bg-gray-50 border-gray-200 focus:border-cyan-500"
                     value={formData.phone}
                     onChange={handleInputChange}
@@ -183,7 +183,7 @@ export function AddPatientPage() {
                   <Input 
                     id="address" 
                     name="address"
-                    placeholder="123 Health St, City" 
+                    placeholder="Indiranagar, Bengaluru" 
                     className="pl-10 h-12 rounded-xl bg-gray-50 border-gray-200 focus:border-cyan-500"
                     value={formData.address}
                     onChange={handleInputChange}

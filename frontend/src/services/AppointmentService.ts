@@ -11,5 +11,13 @@ export const appointmentService = {
 
   async book(data: any) {
     return api.post<{ success: boolean; appointment: any }>("/appointments", data);
-  }
+  },
+
+  async getById(appointmentId: string) {
+    return api.get<{ appointment: any }>(`/appointments/${appointmentId}`);
+  },
+
+  async start(appointmentId: string) {
+    return api.post<{ success: boolean; appointment: any }>(`/appointments/${appointmentId}/start`, {});
+  },
 };

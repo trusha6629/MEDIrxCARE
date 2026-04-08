@@ -93,22 +93,22 @@ export function AdminSettings() {
           <div className="grid gap-4 md:grid-cols-2">
             <div className="space-y-2">
               <Label htmlFor="organizationName">Organization Name</Label>
-              <Input id="organizationName" defaultValue="MediSense Health AI" className="h-11 rounded-xl bg-gray-50" />
+              <Input id="organizationName" defaultValue="MEDIrxCARE Hospitals" className="h-11 rounded-xl bg-gray-50" />
             </div>
             <div className="space-y-2">
               <Label htmlFor="adminName">Administrator</Label>
-              <Input id="adminName" defaultValue={user?.name || "Admin User"} className="h-11 rounded-xl bg-gray-50" />
+              <Input id="adminName" defaultValue={user?.name || "Aditi Sharma"} className="h-11 rounded-xl bg-gray-50" />
             </div>
             <div className="space-y-2">
               <Label htmlFor="adminEmail">Admin Email</Label>
-              <Input id="adminEmail" defaultValue={user?.email || "admin@pulsebridge.ai"} className="h-11 rounded-xl bg-gray-50" />
+              <Input id="adminEmail" defaultValue={user?.email || "admin@medirxcare.in"} className="h-11 rounded-xl bg-gray-50" />
             </div>
             <div className="space-y-2">
               <Label htmlFor="language">Language</Label>
               <select id="language" className="h-11 w-full rounded-xl border border-gray-200 bg-gray-50 px-4 text-sm">
-                <option>English (US)</option>
-                <option>Spanish</option>
-                <option>French</option>
+                <option>English (India)</option>
+                <option>Hindi</option>
+                <option>Tamil</option>
               </select>
             </div>
             <div className="space-y-2">
@@ -121,7 +121,7 @@ export function AdminSettings() {
             </div>
             <div className="space-y-2">
               <Label htmlFor="supportEmail">Support Inbox</Label>
-              <Input id="supportEmail" defaultValue="support@pulsebridge.ai" className="h-11 rounded-xl bg-gray-50" />
+              <Input id="supportEmail" defaultValue="support@medirxcare.in" className="h-11 rounded-xl bg-gray-50" />
             </div>
           </div>
 
@@ -246,14 +246,14 @@ export function AdminSettings() {
               <Label htmlFor="region">Primary Region</Label>
               <div className="relative">
                 <Globe className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
-                <Input id="region" defaultValue="US-East" className="h-11 rounded-xl bg-gray-50 pl-11" />
+                <Input id="region" defaultValue="ap-south-1" className="h-11 rounded-xl bg-gray-50 pl-11" />
               </div>
             </div>
             <div className="space-y-2">
               <Label htmlFor="apiEndpoint">Platform API Endpoint</Label>
               <Input
                 id="apiEndpoint"
-                defaultValue="https://api.pulsebridge.ai/v1"
+                defaultValue="http://localhost:5001/api"
                 className="h-11 rounded-xl bg-gray-50 font-mono text-xs"
               />
             </div>
@@ -290,8 +290,7 @@ export function AdminSettings() {
   return (
     <ProfileSettingsShell
       title="Profile & Settings"
-      description="Manage administrative profile details, security, notifications, and platform controls from one workspace."
-      menuLabel="Admin Profile"
+      description="Manage administrative profile details, security, notifications, and platform controls from one organized workspace."
       sections={sections}
       defaultSectionId="profile"
     />

@@ -7,7 +7,7 @@ const reports = [
     id: 1,
     name: "Complete Blood Count (CBC)",
     date: "2024-02-20",
-    doctor: "Dr. Sarah Miller",
+    doctor: "Dr. Aarav Mehta",
     type: "Lab Report",
     status: "normal",
     fileSize: "2.4 MB"
@@ -16,7 +16,7 @@ const reports = [
     id: 2,
     name: "Chest X-Ray",
     date: "2024-02-18",
-    doctor: "Dr. Michael Chen",
+    doctor: "Dr. Kavya Iyer",
     type: "Radiology",
     status: "normal",
     fileSize: "5.8 MB"
@@ -25,7 +25,7 @@ const reports = [
     id: 3,
     name: "Lipid Profile",
     date: "2024-02-15",
-    doctor: "Dr. Emily Johnson",
+    doctor: "Dr. Meera Kapoor",
     type: "Lab Report",
     status: "attention",
     fileSize: "1.9 MB"
@@ -34,7 +34,7 @@ const reports = [
     id: 4,
     name: "ECG Report",
     date: "2024-02-10",
-    doctor: "Dr. Robert Williams",
+    doctor: "Dr. Rahul Bansal",
     type: "Cardiac",
     status: "normal",
     fileSize: "3.2 MB"
@@ -43,7 +43,7 @@ const reports = [
     id: 5,
     name: "Thyroid Function Test",
     date: "2024-02-05",
-    doctor: "Dr. Lisa Anderson",
+    doctor: "Dr. Nisha Menon",
     type: "Lab Report",
     status: "normal",
     fileSize: "2.1 MB"
@@ -52,7 +52,7 @@ const reports = [
     id: 6,
     name: "Ultrasound Abdomen",
     date: "2024-01-28",
-    doctor: "Dr. Sarah Miller",
+    doctor: "Dr. Aarav Mehta",
     type: "Radiology",
     status: "normal",
     fileSize: "7.3 MB"
@@ -170,4 +170,3 @@ export function PatientReports() {
     </div>
   );
 }
-

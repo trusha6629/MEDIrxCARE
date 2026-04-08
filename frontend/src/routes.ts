@@ -16,8 +16,8 @@ import { DoctorAppointments } from "./pages/DoctorAppointments";
 import { DoctorQueue } from "./pages/DoctorQueue";
 import { DoctorWritePrescription } from "./pages/DoctorWritePrescription";
 import { DoctorPatientHistory } from "./pages/DoctorPatientHistory";
-import { DoctorEarnings } from "./pages/DoctorEarnings";
 import { DoctorSettings } from "./pages/DoctorSettings";
+import { VideoConsultationRoom } from "./pages/VideoConsultationRoom";
 import { AdminDashboard } from "./pages/AdminDashboard";
 import { AdminManageDoctors } from "./pages/AdminManageDoctors";
 import { AdminManagePatients } from "./pages/AdminManagePatients";
@@ -60,6 +60,7 @@ export const router = createBrowserRouter([
           { path: "settings", Component: PatientSettings },
           { path: "live-queue", Component: LiveQueueTracker },
           { path: "preventive-health", Component: PreventiveHealthDashboard },
+          { path: "consultation/:appointmentId", Component: VideoConsultationRoom },
         ],
       },
       {
@@ -71,8 +72,8 @@ export const router = createBrowserRouter([
           { path: "queue", Component: DoctorQueue },
           { path: "write-prescription", Component: DoctorWritePrescription },
           { path: "patient-history", Component: DoctorPatientHistory },
-          { path: "earnings", Component: DoctorEarnings },
           { path: "settings", Component: DoctorSettings },
+          { path: "consultation/:appointmentId", Component: VideoConsultationRoom },
         ],
       },
       {

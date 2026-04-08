@@ -8,7 +8,7 @@ export function getInitials(name = "") {
 }
 
 export function formatDateLabel(date) {
-  return new Intl.DateTimeFormat("en-US", {
+  return new Intl.DateTimeFormat("en-IN", {
     month: "short",
     day: "numeric",
     year: "numeric",
@@ -16,7 +16,7 @@ export function formatDateLabel(date) {
 }
 
 export function formatTimeLabel(date) {
-  return new Intl.DateTimeFormat("en-US", {
+  return new Intl.DateTimeFormat("en-IN", {
     hour: "numeric",
     minute: "2-digit",
   }).format(date);
@@ -71,6 +71,9 @@ export function sanitizeUser(user) {
 }
 
 export function serializeDoctor(user) {
+  const onlineFee = Math.min(user.doctorProfile?.onlineFee || 499, 499);
+  const offlineFee = Math.min(user.doctorProfile?.offlineFee || 799, 799);
+
   return {
     id: user._id.toString(),
     name: user.name,
@@ -81,14 +84,14 @@ export function serializeDoctor(user) {
     experience: `${user.doctorProfile?.experienceYears || 0} years`,
     patients: user.doctorProfile?.patientsCount || 0,
     status: user.status,
-    location: user.doctorProfile?.location || "Main Center",
+    location: user.doctorProfile?.location || "Main Campus",
     avatar: user.avatar || getInitials(user.name),
-    availability: user.doctorProfile?.availability || "Mon-Fri, 9:00 AM - 5:00 PM",
+    availability: user.doctorProfile?.availability || "Mon-Sat, 10:00 AM - 6:00 PM",
     rating: user.doctorProfile?.rating || 4.8,
     reviews: user.doctorProfile?.reviews || 0,
-    onlineFee: user.doctorProfile?.onlineFee || 50,
-    offlineFee: user.doctorProfile?.offlineFee || 80,
-    nextAvailable: user.doctorProfile?.nextAvailable || "Today, 4:00 PM",
+    onlineFee,
+    offlineFee,
+    nextAvailable: user.doctorProfile?.nextAvailable || "Today, 4:30 PM",
     bio: user.doctorProfile?.bio || "",
   };
 }
@@ -118,9 +121,12 @@ export function serializeAppointment(appointment) {
     specialty: appointment.doctor?.doctorProfile?.specialization || "General Physician",
     date: formatDateLabel(appointment.dateTime),
     time: formatTimeLabel(appointment.dateTime),
+    dateTime: appointment.dateTime?.toISOString?.() || null,
     type: appointment.type === "online" ? "Video Consultation" : "In-Person",
     mode: appointment.type === "online" ? "Video" : "In-Person",
     status: appointment.status,
     reason: appointment.reason,
+    fee: appointment.fee || 0,
+    paymentMethod: appointment.paymentMethod || "upi",
   };
 }

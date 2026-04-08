@@ -51,15 +51,15 @@ router.post("/register", async (req, res) => {
             doctorProfile: {
               specialization: "General Physician",
               experienceYears: 0,
-              location: "Main Center",
-              availability: "Mon-Fri, 9:00 AM - 5:00 PM",
+              location: "OPD Wing",
+              availability: "Mon-Sat, 10:00 AM - 6:00 PM",
             },
           }
         : role === "admin"
           ? {
               adminProfile: {
-                title: "System Administrator",
-                organizationName: "MediSense Health AI",
+                title: "Operations Lead",
+                organizationName: "MEDIrxCARE Hospitals",
               },
             }
           : {

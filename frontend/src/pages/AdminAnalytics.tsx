@@ -1,4 +1,4 @@
-import { BarChart3, TrendingUp, Users, Calendar, Activity, DollarSign } from "lucide-react";
+import { BarChart3, TrendingUp, Users, Calendar, Activity, IndianRupee } from "lucide-react";
 import { Card } from "../components/common/Card";
 import { 
   BarChart, 
@@ -13,6 +13,7 @@ import {
   AreaChart,
   Area
 } from "recharts";
+import { formatINR } from "../utils/currency";
 
 const appointmentData = [
   { name: "Mon", count: 45 },
@@ -25,12 +26,12 @@ const appointmentData = [
 ];
 
 const revenueData = [
-  { name: "Jan", revenue: 45000 },
-  { name: "Feb", revenue: 52000 },
-  { name: "Mar", revenue: 48000 },
-  { name: "Apr", revenue: 61000 },
-  { name: "May", revenue: 55000 },
-  { name: "Jun", revenue: 67000 },
+  { name: "Jan", revenue: 450000 },
+  { name: "Feb", revenue: 520000 },
+  { name: "Mar", revenue: 480000 },
+  { name: "Apr", revenue: 610000 },
+  { name: "May", revenue: 550000 },
+  { name: "Jun", revenue: 670000 },
 ];
 
 const departmentData = [
@@ -92,12 +93,12 @@ export function AdminAnalytics() {
         <Card className="p-6 bg-white border border-gray-200 rounded-2xl shadow-sm">
           <div className="flex items-center gap-4">
             <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
-              <DollarSign className="w-6 h-6 text-green-600" />
+              <IndianRupee className="w-6 h-6 text-green-600" />
             </div>
             <div>
               <p className="text-sm text-gray-500">Total Revenue</p>
               <div className="flex items-center gap-2">
-                <p className="text-2xl font-bold text-gray-900">$328.4K</p>
+                <p className="text-2xl font-bold text-gray-900">{formatINR(3284000)}</p>
                 <span className="text-xs font-medium text-green-600">+15%</span>
               </div>
             </div>
@@ -171,10 +172,10 @@ export function AdminAnalytics() {
         <Card className="p-6 bg-white border border-gray-200 rounded-2xl shadow-sm">
           <div className="flex items-center justify-between mb-6">
             <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-              <DollarSign className="w-5 h-5 text-green-600" />
+              <IndianRupee className="w-5 h-5 text-green-600" />
               Revenue Growth
             </h3>
-            <span className="text-xs font-medium text-green-600 bg-green-50 px-2 py-1 rounded-lg">Target: $400K</span>
+            <span className="text-xs font-medium text-green-600 bg-green-50 px-2 py-1 rounded-lg">Target: {formatINR(4000000)}</span>
           </div>
           <div className="h-80 w-full">
             <ResponsiveContainer width="100%" height="100%">

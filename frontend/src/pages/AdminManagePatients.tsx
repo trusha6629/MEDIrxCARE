@@ -114,7 +114,7 @@ export function AdminManagePatients() {
                         </div>
                         <div>
                           <p className="text-sm font-semibold text-gray-900">{patient.name}</p>
-                          <p className="text-xs text-gray-500">ID: #{patient.id.toString().padStart(5, '0')}</p>
+                          <p className="text-xs text-gray-500">Patient record</p>
                         </div>
                       </div>
                     </td>

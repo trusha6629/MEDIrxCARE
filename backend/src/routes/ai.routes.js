@@ -27,14 +27,14 @@ router.post("/doctor", authRequired, async (req, res) => {
     const parsed = aiDoctorSchema.safeParse(req.body);
 
     if (!parsed.success) {
-      return res.status(400).json({ message: "Invalid AI Doctor request.", issues: parsed.error.flatten() });
+      return res.status(400).json({ message: "Invalid care guide request.", issues: parsed.error.flatten() });
     }
 
     const result = await generateAiDoctorAssessment(parsed.data.issue);
     return res.json(result);
   } catch (error) {
-    console.error("AI Doctor request failed.", error);
-    return res.status(500).json({ message: "Failed to generate AI doctor guidance." });
+    console.error("Care guide request failed.", error);
+    return res.status(500).json({ message: "Failed to generate care guidance." });
   }
 });
 

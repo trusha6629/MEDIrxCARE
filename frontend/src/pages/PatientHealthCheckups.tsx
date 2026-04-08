@@ -1,13 +1,14 @@
 import { Heart, Calendar, Clock, CheckCircle, ArrowRight, TrendingUp } from "lucide-react";
 import { Card } from "../components/common/Card";
 import { Button } from "../components/common/Button";
+import { formatINR } from "../utils/currency";
 
 const checkupPackages = [
   {
     id: 1,
     name: "Basic Health Checkup",
     description: "Essential health screening for general wellness",
-    price: 99,
+    price: 899,
     duration: "2-3 hours",
     tests: 15,
     popular: false,
@@ -23,7 +24,7 @@ const checkupPackages = [
     id: 2,
     name: "Comprehensive Health Checkup",
     description: "Complete health assessment with advanced diagnostics",
-    price: 249,
+    price: 1999,
     duration: "4-5 hours",
     tests: 35,
     popular: true,
@@ -40,7 +41,7 @@ const checkupPackages = [
     id: 3,
     name: "Cardiac Health Package",
     description: "Specialized heart health screening",
-    price: 199,
+    price: 1499,
     duration: "3-4 hours",
     tests: 20,
     popular: false,
@@ -56,7 +57,7 @@ const checkupPackages = [
     id: 4,
     name: "Diabetes Screening",
     description: "Complete diabetes risk assessment",
-    price: 149,
+    price: 1199,
     duration: "2-3 hours",
     tests: 12,
     popular: false,
@@ -76,7 +77,7 @@ const upcomingCheckups = [
     name: "Annual Health Checkup",
     date: "2024-03-15",
     time: "09:00 AM",
-    location: "MediSense Main Center",
+    location: "MEDIrxCARE Main Campus",
     status: "scheduled"
   },
   {
@@ -205,7 +206,7 @@ export function PatientHealthCheckups() {
               </div>
 
               <div className="flex items-baseline gap-2 mb-4">
-                <span className="text-4xl font-bold text-gray-900">${pkg.price}</span>
+                <span className="text-4xl font-bold text-gray-900">{formatINR(pkg.price)}</span>
                 <span className="text-sm text-gray-500">per checkup</span>
               </div>
 

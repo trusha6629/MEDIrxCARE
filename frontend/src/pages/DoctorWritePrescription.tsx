@@ -53,10 +53,10 @@ export function DoctorWritePrescription() {
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="patientId" className="text-gray-700 text-sm font-medium">Patient ID</Label>
+                    <Label htmlFor="visitReason" className="text-gray-700 text-sm font-medium">Visit Reason</Label>
                     <Input 
-                      id="patientId" 
-                      placeholder="Enter patient ID" 
+                      id="visitReason" 
+                      placeholder="Enter visit reason" 
                       className="h-11 rounded-xl bg-gray-50 border-gray-200 focus:border-cyan-500 focus:ring-cyan-500"
                     />
                   </div>

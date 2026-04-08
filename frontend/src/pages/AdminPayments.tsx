@@ -1,49 +1,50 @@
-import { DollarSign, TrendingUp, CreditCard, AlertCircle, CheckCircle, Clock } from "lucide-react";
+import { IndianRupee, TrendingUp, CreditCard, AlertCircle, CheckCircle, Clock } from "lucide-react";
 import { Card } from "../components/common/Card";
 import { Button } from "../components/common/Button";
+import { formatINR } from "../utils/currency";
 
 const recentTransactions = [
   {
     id: "TXN001234",
-    patient: "John Doe",
-    doctor: "Dr. Sarah Miller",
-    amount: 250,
+    patient: "Rohan Verma",
+    doctor: "Dr. Aarav Mehta",
+    amount: 3200,
     status: "completed",
     date: "2024-02-26 09:30",
     method: "Credit Card"
   },
   {
     id: "TXN001235",
-    patient: "Emma Wilson",
-    doctor: "Dr. Michael Chen",
-    amount: 180,
+    patient: "Ananya Patel",
+    doctor: "Dr. Kavya Iyer",
+    amount: 2400,
     status: "completed",
     date: "2024-02-26 10:15",
     method: "Insurance"
   },
   {
     id: "TXN001236",
-    patient: "Michael Brown",
-    doctor: "Dr. Emily Johnson",
-    amount: 320,
+    patient: "Vikram Nair",
+    doctor: "Dr. Meera Kapoor",
+    amount: 4100,
     status: "pending",
     date: "2024-02-26 11:00",
     method: "Credit Card"
   },
   {
     id: "TXN001237",
-    patient: "Sarah Davis",
-    doctor: "Dr. Lisa Anderson",
-    amount: 150,
+    patient: "Sneha Kulkarni",
+    doctor: "Dr. Nisha Menon",
+    amount: 1900,
     status: "failed",
     date: "2024-02-26 14:20",
     method: "Debit Card"
   },
   {
     id: "TXN001238",
-    patient: "James Martinez",
-    doctor: "Dr. Robert Williams",
-    amount: 420,
+    patient: "Karan Malhotra",
+    doctor: "Dr. Rahul Bansal",
+    amount: 5200,
     status: "completed",
     date: "2024-02-26 15:45",
     method: "Cash"
@@ -64,14 +65,14 @@ export function AdminPayments() {
         <Card className="p-6 bg-white border border-gray-200 rounded-2xl shadow-sm">
           <div className="flex items-center justify-between mb-4">
             <div className="w-12 h-12 bg-gradient-to-br from-emerald-100 to-emerald-50 rounded-xl flex items-center justify-center">
-              <DollarSign className="w-6 h-6 text-emerald-600" />
+              <IndianRupee className="w-6 h-6 text-emerald-600" />
             </div>
             <span className="text-xs font-medium text-green-600 bg-green-50 px-2 py-1 rounded-lg">
               +15%
             </span>
           </div>
           <p className="text-sm text-gray-500 mb-1">Today's Revenue</p>
-          <p className="text-3xl font-bold text-gray-900">$8,450</p>
+          <p className="text-3xl font-bold text-gray-900">{formatINR(84500)}</p>
         </Card>
 
         <Card className="p-6 bg-white border border-gray-200 rounded-2xl shadow-sm">
@@ -84,7 +85,7 @@ export function AdminPayments() {
             </span>
           </div>
           <p className="text-sm text-gray-500 mb-1">This Month</p>
-          <p className="text-3xl font-bold text-gray-900">$74,250</p>
+          <p className="text-3xl font-bold text-gray-900">{formatINR(742500)}</p>
         </Card>
 
         <Card className="p-6 bg-white border border-gray-200 rounded-2xl shadow-sm">
@@ -163,7 +164,7 @@ export function AdminPayments() {
                       <span className="text-sm text-gray-600">{transaction.doctor}</span>
                     </td>
                     <td className="px-6 py-4">
-                      <span className="text-sm font-semibold text-gray-900">${transaction.amount}</span>
+                      <span className="text-sm font-semibold text-gray-900">{formatINR(transaction.amount)}</span>
                     </td>
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-2">
@@ -202,7 +203,7 @@ export function AdminPayments() {
       ) : (
         <Card className="p-12 bg-white border border-gray-200 rounded-2xl shadow-sm text-center">
           <div className="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-4">
-            <DollarSign className="w-8 h-8 text-gray-300" />
+            <IndianRupee className="w-8 h-8 text-gray-300" />
           </div>
           <h3 className="text-lg font-semibold text-gray-900">No transactions found</h3>
           <p className="text-gray-500">There are no payment records available at this time.</p>

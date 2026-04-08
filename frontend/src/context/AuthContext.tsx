@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import { useNavigate } from "react-router";
+import { BASE_URL } from "../services/ApiService";
 
 interface User {
   id: string;
@@ -34,20 +35,41 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const storedToken = localStorage.getItem("token");
     const storedUser = localStorage.getItem("user");
 
-    if (storedToken && storedUser) {
+    const hydrateSession = async () => {
+      if (!storedToken || !storedUser) {
+        setLoading(false);
+        return;
+      }
+
       try {
         const parsedUser = JSON.parse(storedUser);
+        const response = await fetch(`${BASE_URL}/auth/me`, {
+          headers: {
+            Authorization: `Bearer ${storedToken}`,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error("Session expired");
+        }
+
+        const data = await response.json();
+        const nextUser = data.user || parsedUser;
+
+        localStorage.setItem("user", JSON.stringify(nextUser));
         setToken(storedToken);
-        setUser(parsedUser);
+        setUser(nextUser);
         setIsAuthenticated(true);
       } catch (error) {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
         localStorage.removeItem("role");
+      } finally {
+        setLoading(false);
       }
-    }
+    };
 
-    setLoading(false);
+    hydrateSession();
   }, []);
 
   const login = (newToken: string, newUser: User) => {

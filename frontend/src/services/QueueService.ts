@@ -1,8 +1,9 @@
 import { api } from "./ApiService";
 
 export const queueService = {
-  async getQueueStatus() {
-    return api.get("/queue/status");
+  async getQueueStatus(doctorId?: string) {
+    const query = doctorId ? `?doctorId=${encodeURIComponent(doctorId)}` : "";
+    return api.get(`/queue/status${query}`);
   },
 
   async nextPatient() {

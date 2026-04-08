@@ -1,5 +1,5 @@
 {
-  "name": "medisense-backend",
+  "name": "medirxcare-backend",
   "private": true,
   "version": "1.0.0",
   "type": "module",
@@ -7,7 +7,11 @@
     "dev": "node src/server.js",
     "start": "node src/server.js",
     "build": "node -e \"console.log('Backend is plain Node.js and does not require a build step.')\"",
-    "seed": "node src/scripts/seed.js"
+    "seed": "node src/scripts/seed.js",
+    "test:functions": "NODE_ENV=test node --test --test-reporter=spec tests/functions.unit.test.js",
+    "test:api": "NODE_ENV=test node --test --test-reporter=spec tests/api-endpoints.test.js",
+    "test:integration": "NODE_ENV=test node --test --test-reporter=spec tests/integration.test.js",
+    "test": "NODE_ENV=test node --test --test-reporter=spec tests/*.test.js"
   },
   "dependencies": {
     "bcryptjs": "2.4.3",

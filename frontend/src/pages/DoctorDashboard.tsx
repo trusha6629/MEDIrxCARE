@@ -1,4 +1,4 @@
-import { Calendar, Clock, Video, Users, Activity, CheckCircle, FileText, Timer, UserCheck, BarChart3 } from "lucide-react";
+import { Calendar, Clock, Video, Users, Activity, CheckCircle, FileText, Timer, BarChart3 } from "lucide-react";
 import { Card } from "../components/common/Card";
 import { Button } from "../components/common/Button";
 import { useNavigate } from "react-router";
@@ -7,14 +7,23 @@ import { useAppointments } from "../hooks/useAppointments";
 import { useDashboardStats } from "../hooks/useDashboardStats";
 import { useQueue } from "../hooks/useQueue";
 import { StatCard } from "../components/dashboard/StatCard";
-import { AppointmentCard } from "../components/dashboard/AppointmentCard";
+import { queueService } from "../services/QueueService";
 
 export function DoctorDashboard() {
   const navigate = useNavigate();
   const { user } = useAuth();
   const { appointments, loading: appointmentsLoading } = useAppointments('doctor');
   const { stats, loading: statsLoading } = useDashboardStats('doctor');
-  const { queue, loading: queueLoading } = useQueue();
+  const { queue, loading: queueLoading, refresh: refreshQueue } = useQueue();
+
+  const handleAdvanceQueue = async () => {
+    try {
+      await queueService.nextPatient();
+      await refreshQueue();
+    } catch (error) {
+      console.error("Failed to advance queue:", error);
+    }
+  };
 
   return (
     <div className="space-y-6 pb-8">
@@ -22,7 +31,7 @@ export function DoctorDashboard() {
       <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-semibold text-gray-900 mb-1">Good Morning, {user?.name || "Dr. Sarah Miller"} 👋</h1>
+            <h1 className="text-2xl font-semibold text-gray-900 mb-1">Good Morning, {user?.name || "Dr. Aarav Mehta"} 👋</h1>
             <p className="text-gray-600">You have {stats?.todaysAppointments || 0} appointments scheduled for today</p>
           </div>
           <div className="px-5 py-3 bg-gray-50 rounded-xl border border-gray-200">
@@ -97,15 +106,13 @@ export function DoctorDashboard() {
                           {appointment.status.charAt(0).toUpperCase() + appointment.status.slice(1)}
                         </span>
                         
-                        {appointment.status === 'ongoing' && appointment.mode === 'Video' && (
-                          <Button size="sm" className="bg-gradient-to-r from-cyan-600 to-teal-500 hover:from-cyan-700 hover:to-teal-600 text-white h-9 px-4 shadow-sm">
-                            Join
-                          </Button>
-                        )}
-                        
-                        {appointment.status === 'upcoming' && (
-                          <Button size="sm" className="bg-gradient-to-r from-cyan-600 to-teal-500 hover:from-cyan-700 hover:to-teal-600 text-white h-9 px-4 shadow-sm">
-                            Start
+                        {appointment.mode === 'Video' && appointment.status !== 'completed' && (
+                          <Button
+                            size="sm"
+                            onClick={() => navigate(`/doctor/consultation/${appointment.id}`)}
+                            className="bg-gradient-to-r from-cyan-600 to-teal-500 hover:from-cyan-700 hover:to-teal-600 text-white h-9 px-4 shadow-sm"
+                          >
+                            {appointment.status === "ongoing" ? "Join" : "Start"}
                           </Button>
                         )}
 
@@ -147,11 +154,14 @@ export function DoctorDashboard() {
                         <span className="text-2xl font-bold">{queue?.currentServing}</span>
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="font-semibold text-gray-900 truncate">{queue?.nextPatient.name}</p>
-                        <p className="text-xs text-gray-600 truncate">{queue?.nextPatient.reason}</p>
+                        <p className="font-semibold text-gray-900 truncate">{queue?.currentPatient?.name || "Waiting to start"}</p>
+                        <p className="text-xs text-gray-600 truncate">{queue?.currentPatient?.reason || "No patient is being served yet."}</p>
                       </div>
                     </div>
-                    <Button className="w-full bg-gradient-to-r from-cyan-600 to-teal-500 hover:from-cyan-700 hover:to-teal-600 text-white h-11 shadow-sm font-medium">
+                    <Button
+                      onClick={handleAdvanceQueue}
+                      className="w-full bg-gradient-to-r from-cyan-600 to-teal-500 hover:from-cyan-700 hover:to-teal-600 text-white h-11 shadow-sm font-medium"
+                    >
                       <CheckCircle className="w-4 h-4 mr-2" />
                       Mark as Completed
                     </Button>

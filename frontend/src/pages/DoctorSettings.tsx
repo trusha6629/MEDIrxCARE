@@ -80,7 +80,7 @@ export function DoctorSettings() {
             <div className="grid gap-4 md:grid-cols-2">
               <div className="space-y-2">
                 <Label htmlFor="fullName">Full Name</Label>
-                <Input id="fullName" defaultValue={user?.name || "Dr. Sarah Miller"} className="h-11 rounded-xl bg-gray-50" />
+                <Input id="fullName" defaultValue={user?.name || "Dr. Aarav Mehta"} className="h-11 rounded-xl bg-gray-50" />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="specialty">Specialty</Label>
@@ -91,7 +91,7 @@ export function DoctorSettings() {
             <div className="grid gap-4 md:grid-cols-2">
               <div className="space-y-2">
                 <Label htmlFor="license">License Number</Label>
-                <Input id="license" defaultValue="MED-7829-CA" className="h-11 rounded-xl bg-gray-50" />
+                <Input id="license" defaultValue="MCI-DL-7829" className="h-11 rounded-xl bg-gray-50" />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="experience">Years of Experience</Label>
@@ -106,7 +106,7 @@ export function DoctorSettings() {
                 <Input
                   id="email"
                   type="email"
-                  defaultValue={user?.email || "sarah.miller@pulsebridge.ai"}
+                  defaultValue={user?.email || "aarav.mehta@medirxcare.in"}
                   className="h-11 rounded-xl bg-gray-50 pl-11"
                 />
               </div>
@@ -116,7 +116,7 @@ export function DoctorSettings() {
               <Label htmlFor="phone">Phone Number</Label>
               <div className="relative">
                 <Phone className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
-                <Input id="phone" defaultValue="+1 (555) 123-4567" className="h-11 rounded-xl bg-gray-50 pl-11" />
+                <Input id="phone" defaultValue="+91 98765 41001" className="h-11 rounded-xl bg-gray-50 pl-11" />
               </div>
             </div>
 
@@ -125,7 +125,7 @@ export function DoctorSettings() {
               <Textarea
                 id="bio"
                 rows={4}
-                defaultValue="Board-certified cardiologist focused on preventive care, diagnostics, and long-term cardiac health."
+                defaultValue="Senior cardiologist focused on preventive care, diagnostics, and long-term cardiac health."
                 className="rounded-xl bg-gray-50"
               />
             </div>
@@ -258,16 +258,16 @@ export function DoctorSettings() {
               <div className="space-y-2">
                 <Label htmlFor="timezone">Timezone</Label>
                 <select id="timezone" className="h-11 w-full rounded-xl border border-gray-200 bg-gray-50 px-4 text-sm">
-                  <option>EST (UTC-5)</option>
-                  <option>PST (UTC-8)</option>
-                  <option>CST (UTC-6)</option>
+                  <option>IST (UTC+5:30)</option>
+                  <option>GST (UTC+4)</option>
+                  <option>UTC</option>
                 </select>
               </div>
               <div className="space-y-2">
                 <Label htmlFor="availability">Availability Block</Label>
                 <div className="relative">
                   <Clock3 className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
-                  <Input id="availability" defaultValue="Mon-Fri, 09:00 AM - 05:00 PM" className="h-11 rounded-xl bg-gray-50 pl-11" />
+                  <Input id="availability" defaultValue="Mon-Sat, 09:30 AM - 05:30 PM" className="h-11 rounded-xl bg-gray-50 pl-11" />
                 </div>
               </div>
             </div>
@@ -295,8 +295,7 @@ export function DoctorSettings() {
   return (
     <ProfileSettingsShell
       title="Profile & Settings"
-      description="Manage your professional profile, security, notifications, and practice defaults from one place."
-      menuLabel="Doctor Profile"
+      description="Manage your professional profile, security, notifications, and practice defaults from one polished workspace."
       sections={sections}
       defaultSectionId="profile"
     />

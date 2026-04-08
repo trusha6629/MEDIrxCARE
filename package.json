@@ -1,5 +1,5 @@
 {
-  "name": "medisense-platform",
+  "name": "medirxcare-platform",
   "private": true,
   "version": "1.0.0",
   "scripts": {
@@ -7,6 +7,10 @@
     "dev:backend": "npm --prefix backend run dev",
     "build:frontend": "npm --prefix frontend run build",
     "build:backend": "npm --prefix backend run build",
+    "test:functions": "npm --prefix backend run test:functions",
+    "test:api": "npm --prefix backend run test:api",
+    "test:integration": "npm --prefix backend run test:integration",
+    "test:backend": "npm --prefix backend run test",
     "build": "npm run build:backend && npm run build:frontend",
     "start:backend": "npm --prefix backend run start",
     "seed:backend": "npm --prefix backend run seed"

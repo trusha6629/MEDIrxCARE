@@ -10,7 +10,7 @@ async function start() {
 
     const app = createApp();
     app.listen(env.port, () => {
-      console.log(`MediSense backend listening on port ${env.port}`);
+      console.log(`MEDIrxCARE backend listening on port ${env.port}`);
     });
   } catch (error) {
     console.error("Failed to start the backend.", error);

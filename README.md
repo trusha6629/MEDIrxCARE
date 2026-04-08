@@ -1,6 +1,6 @@
-# MediSense
+# MEDIrxCARE
 
-MediSense is now organized as a full-stack project with a React/Vite frontend and an Express/MongoDB backend.
+MEDIrxCARE is organized as a full-stack project with a React/Vite frontend and an Express/MongoDB backend.
 
 ## Structure
 
@@ -17,7 +17,7 @@ MediSense is now organized as a full-stack project with a React/Vite frontend an
 - Patient, doctor, and admin dashboards
 - JWT-based authentication
 - MongoDB-backed doctors, patients, appointments, notifications, and queue data
-- AI Doctor endpoint for symptom/problem guidance
+- Care Guide endpoint for symptom/problem guidance
 - AI-powered floating chatbot endpoint
 - Admin create-doctor and create-patient flows
 - Deployment-ready Dockerfiles for frontend and backend
@@ -56,9 +56,9 @@ npm run dev:frontend
 
 These are seeded automatically when the backend starts with an empty database:
 
-- Admin: `admin@medisense.ai` / `Password123!`
-- Doctor: `sarah.miller@medisense.ai` / `Password123!`
-- Patient: `john.doe@example.com` / `Password123!`
+- Admin: `admin@medirxcare.in` / `Password123!`
+- Doctor: `aarav.mehta@medirxcare.in` / `Password123!`
+- Patient: `rohan.verma@example.com` / `Password123!`
 
 ## AI Setup
 
@@ -69,7 +69,7 @@ OPENAI_API_KEY=your_key_here
 OPENAI_MODEL=gpt-5-mini
 ```
 
-Without an API key, the AI Doctor page and chatbot still work with deterministic fallback guidance.
+Without an API key, the Care Guide page and chatbot still work with deterministic fallback guidance.
 
 ## Docker Deployment
 

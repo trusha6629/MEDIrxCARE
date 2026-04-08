@@ -78,7 +78,7 @@ export function AdminDashboard() {
                     <Input 
                       id="name" 
                       name="name"
-                      placeholder="e.g. Dr. Robert Wilson" 
+                      placeholder="e.g. Dr. Meera Kapoor" 
                       className="pl-10 h-11 rounded-xl bg-gray-50 border-gray-200 focus:border-cyan-500"
                       value={formData.name}
                       onChange={handleInputChange}
@@ -94,7 +94,7 @@ export function AdminDashboard() {
                       id="email" 
                       name="email"
                       type="email"
-                      placeholder="staff@pulsebridge.ai" 
+                      placeholder="staff@medirxcare.in" 
                       className="pl-10 h-11 rounded-xl bg-gray-50 border-gray-200 focus:border-cyan-500"
                       value={formData.email}
                       onChange={handleInputChange}

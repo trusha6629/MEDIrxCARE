@@ -29,7 +29,7 @@ export function LiveQueueTracker() {
         <div className="relative flex items-center justify-between">
           <div>
             <p className="text-cyan-50 mb-1 text-sm font-medium">Today's Appointment</p>
-            <h3 className="text-2xl font-bold">Dr. Sarah Johnson</h3>
+            <h3 className="text-2xl font-bold">Dr. Aarav Mehta</h3>
             <p className="text-cyan-50 mt-1 font-medium">Cardiology Department</p>
           </div>
           <div className="text-right">

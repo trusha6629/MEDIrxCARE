@@ -15,7 +15,26 @@ const bookAppointmentSchema = z.object({
   selectedDate: z.string().min(1),
   selectedSlot: z.string().min(1),
   reason: z.string().min(2).default("General consultation"),
+  paymentMethod: z.enum(["upi", "card", "wallet", "netbanking"]).default("upi"),
 });
+
+async function findAuthorizedAppointment(appointmentId, currentUser) {
+  const appointment = await Appointment.findById(appointmentId).populate("patient").populate("doctor");
+
+  if (!appointment) {
+    return null;
+  }
+
+  if (currentUser.role === "admin") {
+    return appointment;
+  }
+
+  const userId = currentUser._id.toString();
+  const isDoctor = appointment.doctor?._id?.toString() === userId;
+  const isPatient = appointment.patient?._id?.toString() === userId;
+
+  return isDoctor || isPatient ? appointment : null;
+}
 
 router.get("/upcoming", authRequired, async (req, res) => {
   try {
@@ -62,6 +81,21 @@ router.get("/doctor/today", authRequired, requireRole("doctor", "admin"), async 
   }
 });
 
+router.get("/:appointmentId", authRequired, async (req, res) => {
+  try {
+    const appointment = await findAuthorizedAppointment(req.params.appointmentId, req.user);
+
+    if (!appointment) {
+      return res.status(404).json({ message: "Appointment not found." });
+    }
+
+    return res.json({ appointment: serializeAppointment(appointment) });
+  } catch (error) {
+    console.error("Failed to fetch appointment.", error);
+    return res.status(500).json({ message: "Failed to fetch appointment." });
+  }
+});
+
 router.post("/", authRequired, async (req, res) => {
   try {
     const parsed = bookAppointmentSchema.safeParse(req.body);
@@ -70,7 +104,7 @@ router.post("/", authRequired, async (req, res) => {
       return res.status(400).json({ message: "Invalid appointment data.", issues: parsed.error.flatten() });
     }
 
-    const { doctorId, consultationType, selectedDate, selectedSlot, reason } = parsed.data;
+    const { doctorId, consultationType, selectedDate, selectedSlot, reason, paymentMethod } = parsed.data;
     const doctor = await User.findOne({ _id: doctorId, role: "doctor" });
 
     if (!doctor) {
@@ -85,7 +119,10 @@ router.post("/", authRequired, async (req, res) => {
     }
 
     const dateTime = createAppointmentDateTime(selectedDate, selectedSlot);
-    const fee = consultationType === "online" ? doctor.doctorProfile?.onlineFee || 50 : doctor.doctorProfile?.offlineFee || 80;
+    const fee =
+      consultationType === "online"
+        ? Math.min(doctor.doctorProfile?.onlineFee || 499, 499)
+        : Math.min(doctor.doctorProfile?.offlineFee || 799, 799);
 
     const appointment = await Appointment.create({
       patient: patient._id,
@@ -94,6 +131,8 @@ router.post("/", authRequired, async (req, res) => {
       type: consultationType,
       status: "confirmed",
       fee,
+      paymentMethod,
+      paymentStatus: "paid",
       dateTime,
     });
 
@@ -149,6 +188,33 @@ router.post("/", authRequired, async (req, res) => {
   } catch (error) {
     console.error("Failed to book appointment.", error);
     return res.status(500).json({ message: "Failed to book appointment." });
+  }
+});
+
+router.post("/:appointmentId/start", authRequired, async (req, res) => {
+  try {
+    const appointment = await findAuthorizedAppointment(req.params.appointmentId, req.user);
+
+    if (!appointment) {
+      return res.status(404).json({ message: "Appointment not found." });
+    }
+
+    if (appointment.type !== "online") {
+      return res.status(400).json({ message: "Only video appointments can be started here." });
+    }
+
+    if (appointment.status === "confirmed") {
+      appointment.status = "ongoing";
+      await appointment.save();
+    }
+
+    return res.json({
+      success: true,
+      appointment: serializeAppointment(appointment),
+    });
+  } catch (error) {
+    console.error("Failed to start appointment.", error);
+    return res.status(500).json({ message: "Failed to start appointment." });
   }
 });
 

@@ -83,7 +83,7 @@ export function PrescriptionInsight() {
         <div className="flex items-start justify-between">
           <div>
             <p className="text-cyan-50 mb-1">Prescribed by</p>
-            <h3 className="text-xl font-semibold mb-1">Dr. Sarah Johnson</h3>
+            <h3 className="text-xl font-semibold mb-1">Dr. Aarav Mehta</h3>
             <p className="text-cyan-50">Cardiologist</p>
           </div>
           <div className="text-right">
@@ -229,4 +229,3 @@ export function PrescriptionInsight() {
     </div>
   );
 }
-

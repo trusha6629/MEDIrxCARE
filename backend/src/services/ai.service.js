@@ -102,7 +102,7 @@ export async function generateAiDoctorAssessment(issue) {
             {
               type: "input_text",
               text:
-                "You are MediSense AI Doctor, a cautious healthcare assistant. Provide educational guidance only. Never prescribe antibiotics, steroids, narcotics, or diagnosis certainty. Always include emergency red flags, recommend professional review when appropriate, and keep medicine suggestions limited to common OTC or general supportive options with cautions.",
+                "You are the MEDIrxCARE Care Guide, a cautious healthcare assistant. Provide educational guidance only. Never prescribe antibiotics, steroids, narcotics, or diagnosis certainty. Always include emergency red flags, recommend professional review when appropriate, and keep medicine suggestions limited to common OTC or general supportive options with cautions.",
             },
           ],
         },
@@ -119,7 +119,7 @@ export async function generateAiDoctorAssessment(issue) {
       text: {
         format: {
           type: "json_schema",
-          name: "mediSense_ai_doctor_assessment",
+          name: "medirxcare_ai_doctor_assessment",
           strict: true,
           schema: {
             type: "object",
@@ -155,7 +155,7 @@ export async function generateAiDoctorAssessment(issue) {
 
     return JSON.parse(response.output_text);
   } catch (error) {
-    console.error("OpenAI AI Doctor request failed, falling back to local logic.", error);
+    console.error("OpenAI care guide request failed, falling back to local logic.", error);
     return fallbackDoctorAssessment(issue);
   }
 }
@@ -181,7 +181,7 @@ export async function generateChatbotReply({ message, history = [], role = "pati
             {
               type: "input_text",
               text:
-                "You are MediSense AI, a healthcare product assistant. Help with appointments, doctor discovery, reports, queues, and basic AI doctor guidance. Give concise answers, avoid definitive diagnoses, and always advise professional review for serious or persistent symptoms.",
+                "You are MEDIrxCARE Assist, a healthcare product assistant. Help with appointments, doctor discovery, reports, queues, and basic care guidance. Give concise answers, avoid definitive diagnoses, and always advise professional review for serious or persistent symptoms.",
             },
           ],
         },

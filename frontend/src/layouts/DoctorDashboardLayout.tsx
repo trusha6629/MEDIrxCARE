@@ -1,11 +1,10 @@
-import { Outlet } from "react-router";
+import { Outlet, useLocation } from "react-router";
 import { 
   LayoutDashboard, 
   Calendar, 
   Users, 
   ClipboardList, 
   Settings,
-  BarChart3,
   UserCheck
 } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
@@ -18,7 +17,6 @@ const doctorNavigation = [
   { name: "Live Queue", path: "/doctor/queue", icon: UserCheck },
   { name: "Patient History", path: "/doctor/patient-history", icon: Users },
   { name: "Prescriptions", path: "/doctor/write-prescription", icon: ClipboardList },
-  { name: "Earnings", path: "/doctor/earnings", icon: BarChart3 },
   { name: "Profile", path: "/doctor/settings", icon: Settings },
 ];
 
@@ -27,6 +25,8 @@ const doctorNavigation = [
  */
 export function DoctorDashboardLayout() {
   const { logout } = useAuth();
+  const location = useLocation();
+  const isConsultationRoute = location.pathname.includes("/consultation/");
 
   const handleLogout = () => {
     if (window.confirm("Are you sure you want to logout?")) {
@@ -34,8 +34,18 @@ export function DoctorDashboardLayout() {
     }
   };
 
+  if (isConsultationRoute) {
+    return (
+      <div className="h-screen overflow-hidden bg-slate-950">
+        <main className="h-full overflow-hidden">
+          <Outlet />
+        </main>
+      </div>
+    );
+  }
+
   return (
-    <div className="flex h-screen bg-gray-50 overflow-hidden">
+    <div className="flex h-screen overflow-hidden bg-gray-50 dark:bg-slate-950">
       <Sidebar 
         navigation={doctorNavigation} 
         onLogout={handleLogout} 

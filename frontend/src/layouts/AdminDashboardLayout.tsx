@@ -37,7 +37,7 @@ export function AdminDashboardLayout() {
   };
 
   return (
-    <div className="flex h-screen bg-gray-50 overflow-hidden">
+    <div className="flex h-screen overflow-hidden bg-gray-50 dark:bg-slate-950">
       <Sidebar 
         navigation={adminNavigation} 
         onLogout={handleLogout} 

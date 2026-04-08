@@ -1,8 +1,9 @@
-import { TestTube, Search, Calendar, Clock, MapPin, DollarSign } from "lucide-react";
+import { TestTube, Search, Calendar, Clock, MapPin, IndianRupee } from "lucide-react";
 import { Card } from "../components/common/Card";
 import { Button } from "../components/common/Button";
 import { Input } from "../components/common/Input";
 import { useState } from "react";
+import { formatINR } from "../utils/currency";
 
 const categories = [
   { name: "All Tests", count: 250, active: true },
@@ -18,7 +19,7 @@ const popularTests = [
     id: 1,
     name: "Complete Blood Count (CBC)",
     category: "Blood Test",
-    price: 25,
+    price: 399,
     duration: "6-8 hours",
     preparation: "Fasting not required",
     description: "Comprehensive blood cell analysis including RBC, WBC, and platelets"
@@ -27,7 +28,7 @@ const popularTests = [
     id: 2,
     name: "Lipid Profile",
     category: "Blood Test",
-    price: 35,
+    price: 549,
     duration: "12 hours",
     preparation: "12 hours fasting required",
     description: "Complete cholesterol screening including HDL, LDL, and triglycerides"
@@ -36,7 +37,7 @@ const popularTests = [
     id: 3,
     name: "Thyroid Function Test (TSH, T3, T4)",
     category: "Blood Test",
-    price: 45,
+    price: 799,
     duration: "24 hours",
     preparation: "Fasting not required",
     description: "Comprehensive thyroid hormone levels assessment"
@@ -45,7 +46,7 @@ const popularTests = [
     id: 4,
     name: "HbA1c (Glycated Hemoglobin)",
     category: "Blood Test",
-    price: 30,
+    price: 499,
     duration: "24 hours",
     preparation: "Fasting not required",
     description: "3-month average blood sugar level test for diabetes monitoring"
@@ -54,7 +55,7 @@ const popularTests = [
     id: 5,
     name: "Chest X-Ray",
     category: "Radiology",
-    price: 50,
+    price: 899,
     duration: "Same day",
     preparation: "No preparation needed",
     description: "Digital X-ray imaging of chest and lungs"
@@ -63,7 +64,7 @@ const popularTests = [
     id: 6,
     name: "ECG (Electrocardiogram)",
     category: "Cardiac",
-    price: 40,
+    price: 699,
     duration: "Immediate",
     preparation: "No preparation needed",
     description: "Heart electrical activity monitoring and rhythm analysis"
@@ -72,7 +73,7 @@ const popularTests = [
     id: 7,
     name: "Ultrasound Abdomen",
     category: "Imaging",
-    price: 85,
+    price: 1299,
     duration: "Same day",
     preparation: "6 hours fasting required",
     description: "Detailed imaging of abdominal organs"
@@ -81,7 +82,7 @@ const popularTests = [
     id: 8,
     name: "Vitamin D Test",
     category: "Blood Test",
-    price: 55,
+    price: 949,
     duration: "2-3 days",
     preparation: "Fasting not required",
     description: "Vitamin D levels assessment for bone health"
@@ -212,8 +213,8 @@ export function PatientTestsServices() {
                 </div>
                 <div className="text-right">
                   <div className="flex items-center gap-1 text-lg font-bold text-gray-900">
-                    <DollarSign className="w-5 h-5" />
-                    {test.price}
+                    <IndianRupee className="w-5 h-5" />
+                    {formatINR(test.price).replace("₹", "")}
                   </div>
                 </div>
               </div>
@@ -262,7 +263,7 @@ export function PatientTestsServices() {
 
         <Card className="p-6 bg-gradient-to-br from-blue-50 to-white border border-blue-100 rounded-2xl shadow-sm">
           <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center mb-4 shadow-sm">
-            <DollarSign className="w-6 h-6 text-blue-600" />
+            <IndianRupee className="w-6 h-6 text-blue-600" />
           </div>
           <h4 className="text-base font-semibold text-gray-900 mb-2">Best Prices</h4>
           <p className="text-sm text-gray-600">NABL certified labs with competitive pricing and packages.</p>
@@ -271,4 +272,3 @@ export function PatientTestsServices() {
     </div>
   );
 }
-

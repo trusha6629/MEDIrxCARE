@@ -25,7 +25,7 @@ const doctorNotifications: Notification[] = [
     icon: Calendar,
     iconColor: "text-blue-600 bg-blue-50",
     title: "New Appointment Booked",
-    description: "Sarah Johnson for Cardiac Check-up at 2:00 PM",
+    description: "Ananya Patel for Cardiac Check-up at 2:00 PM",
     time: "10 min ago",
     isRead: false,
   },

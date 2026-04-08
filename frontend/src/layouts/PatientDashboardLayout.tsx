@@ -1,10 +1,8 @@
-import { Outlet } from "react-router";
+import { Outlet, useLocation } from "react-router";
 import { 
   LayoutDashboard, 
   Calendar, 
   Settings,
-  Stethoscope,
-  Brain,
   Heart,
   TestTube,
   FileText,
@@ -14,12 +12,14 @@ import { useAuth } from "../context/AuthContext";
 import { AIChatbot } from "../components/chatbot/AIChatbot";
 import { Sidebar } from "../components/layout/Sidebar";
 import { Header } from "../components/layout/Header";
+import { DoctorSearchLogo } from "../components/icons/DoctorSearchLogo";
+import { CareAssistantLogo } from "../components/icons/CareAssistantLogo";
 
 const patientNavigation = [
   { name: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
   { name: "Book Appointment", path: "/dashboard/book-appointment", icon: Calendar },
-  { name: "Find Doctors", path: "/dashboard/doctor-directory", icon: Stethoscope },
-  { name: "AI Doctor", path: "/dashboard/ai-doctor", icon: Brain },
+  { name: "Find Doctors", path: "/dashboard/doctor-directory", icon: DoctorSearchLogo },
+  { name: "Care Guide", path: "/dashboard/ai-doctor", icon: CareAssistantLogo },
   { name: "Prescriptions", path: "/dashboard/prescriptions", icon: FileText },
   { name: "Reports", path: "/dashboard/reports", icon: ClipboardList },
   { name: "Health Checkups", path: "/dashboard/health-checkups", icon: Heart },
@@ -32,6 +32,8 @@ const patientNavigation = [
  */
 export function PatientDashboardLayout() {
   const { logout } = useAuth();
+  const location = useLocation();
+  const isConsultationRoute = location.pathname.includes("/consultation/");
 
   const handleLogout = () => {
     if (window.confirm("Are you sure you want to logout?")) {
@@ -39,8 +41,18 @@ export function PatientDashboardLayout() {
     }
   };
 
+  if (isConsultationRoute) {
+    return (
+      <div className="h-screen overflow-hidden bg-slate-950">
+        <main className="h-full overflow-hidden">
+          <Outlet />
+        </main>
+      </div>
+    );
+  }
+
   return (
-    <div className="flex h-screen bg-gray-50 overflow-hidden">
+    <div className="flex h-screen overflow-hidden bg-gray-50 dark:bg-slate-950">
       <Sidebar 
         navigation={patientNavigation} 
         onLogout={handleLogout} 

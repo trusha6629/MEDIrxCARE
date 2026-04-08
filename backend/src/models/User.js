@@ -23,11 +23,11 @@ const doctorProfileSchema = new mongoose.Schema(
     availability: String,
     onlineFee: {
       type: Number,
-      default: 50,
+      default: 499,
     },
     offlineFee: {
       type: Number,
-      default: 80,
+      default: 799,
     },
     rating: {
       type: Number,
@@ -43,7 +43,7 @@ const doctorProfileSchema = new mongoose.Schema(
     },
     nextAvailable: {
       type: String,
-      default: "Today, 4:00 PM",
+      default: "Today, 4:30 PM",
     },
     bio: String,
     licenseNumber: String,
@@ -59,7 +59,7 @@ const adminProfileSchema = new mongoose.Schema(
     },
     organizationName: {
       type: String,
-      default: "MediSense Health AI",
+      default: "MEDIrxCARE Hospitals",
     },
   },
   { _id: false },

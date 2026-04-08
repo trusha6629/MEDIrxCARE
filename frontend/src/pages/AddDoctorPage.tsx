@@ -72,7 +72,7 @@ export function AddDoctorPage() {
                   <Input 
                     id="name" 
                     name="name"
-                    placeholder="Dr. Jane Smith" 
+                    placeholder="Dr. Aarav Mehta" 
                     className="pl-10 h-12 rounded-xl bg-gray-50 border-gray-200 focus:border-cyan-500"
                     value={formData.name}
                     onChange={handleInputChange}
@@ -88,7 +88,7 @@ export function AddDoctorPage() {
                     id="email" 
                     name="email"
                     type="email"
-                    placeholder="jane.smith@pulsebridge.ai" 
+                    placeholder="aarav.mehta@medirxcare.in" 
                     className="pl-10 h-12 rounded-xl bg-gray-50 border-gray-200 focus:border-cyan-500"
                     value={formData.email}
                     onChange={handleInputChange}
@@ -103,7 +103,7 @@ export function AddDoctorPage() {
                   <Input 
                     id="phone" 
                     name="phone"
-                    placeholder="+1 (555) 000-0000" 
+                    placeholder="+91 98765 41003" 
                     className="pl-10 h-12 rounded-xl bg-gray-50 border-gray-200 focus:border-cyan-500"
                     value={formData.phone}
                     onChange={handleInputChange}
@@ -124,11 +124,11 @@ export function AddDoctorPage() {
                     required
                   >
                     <option value="">Select Specialization</option>
-                    <option>Cardiologist</option>
-                    <option>Neurologist</option>
-                    <option>Orthopedic</option>
-                    <option>Pediatrician</option>
-                    <option>Dermatologist</option>
+                    <option>Cardiology</option>
+                    <option>Neurology</option>
+                    <option>Orthopedics</option>
+                    <option>Pediatrics</option>
+                    <option>Dermatology</option>
                     <option>General Physician</option>
                   </select>
                 </div>
@@ -162,7 +162,7 @@ export function AddDoctorPage() {
                   <Input 
                     id="location" 
                     name="location"
-                    placeholder="e.g. Building A, Floor 3" 
+                    placeholder="e.g. Heart Care Block, Level 3" 
                     className="pl-10 h-12 rounded-xl bg-gray-50 border-gray-200 focus:border-cyan-500"
                     value={formData.location}
                     onChange={handleInputChange}
@@ -177,7 +177,7 @@ export function AddDoctorPage() {
                   <Input 
                     id="availability" 
                     name="availability"
-                    placeholder="e.g. Mon-Fri, 9:00 AM - 5:00 PM" 
+                    placeholder="e.g. Mon-Sat, 10:00 AM - 6:00 PM" 
                     className="pl-10 h-12 rounded-xl bg-gray-50 border-gray-200 focus:border-cyan-500"
                     value={formData.availability}
                     onChange={handleInputChange}

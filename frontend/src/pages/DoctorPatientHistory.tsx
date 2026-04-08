@@ -7,40 +7,35 @@ import { useState } from "react";
 const patientRecords = [
   {
     id: 1,
-    name: "John Smith",
-    patientId: "P12345",
+    name: "Rohan Verma",
     lastVisit: "Feb 20, 2026",
     diagnosis: "Hypertension",
     visits: 8
   },
   {
     id: 2,
-    name: "Sarah Johnson",
-    patientId: "P12346",
+    name: "Ananya Patel",
     lastVisit: "Feb 25, 2026",
     diagnosis: "Cardiac Check-up",
     visits: 5
   },
   {
     id: 3,
-    name: "Michael Chen",
-    patientId: "P12347",
+    name: "Vikram Nair",
     lastVisit: "Feb 18, 2026",
     diagnosis: "Diabetes Type 2",
     visits: 12
   },
   {
     id: 4,
-    name: "Emily Davis",
-    patientId: "P12348",
+    name: "Sneha Kulkarni",
     lastVisit: "Feb 22, 2026",
     diagnosis: "Migraine",
     visits: 6
   },
   {
     id: 5,
-    name: "Robert Wilson",
-    patientId: "P12349",
+    name: "Karan Malhotra",
     lastVisit: "Feb 24, 2026",
     diagnosis: "Asthma",
     visits: 9
@@ -50,10 +45,7 @@ const patientRecords = [
 export function DoctorPatientHistory() {
   const [searchQuery, setSearchQuery] = useState("");
 
-  const filteredPatients = patientRecords.filter(patient =>
-    patient.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    patient.patientId.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredPatients = patientRecords.filter((patient) => patient.name.toLowerCase().includes(searchQuery.toLowerCase()));
 
   return (
     <div className="space-y-6">
@@ -69,7 +61,7 @@ export function DoctorPatientHistory() {
           <Input
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search by patient name or ID..."
+            placeholder="Search by patient name..."
             className="pl-12 h-11 rounded-xl bg-gray-50 border-gray-200 focus:border-cyan-500 focus:ring-cyan-500"
           />
         </div>
@@ -89,7 +81,7 @@ export function DoctorPatientHistory() {
                 </div>
                 <div className="flex-1">
                   <p className="font-semibold text-gray-900">{patient.name}</p>
-                  <p className="text-xs text-gray-600">ID: {patient.patientId}</p>
+                  <p className="text-xs text-gray-600">Recent diagnosis and visit summary</p>
                 </div>
               </div>
               
@@ -125,4 +117,3 @@ export function DoctorPatientHistory() {
     </div>
   );
 }
-

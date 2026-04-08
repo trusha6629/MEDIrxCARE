@@ -18,6 +18,7 @@ import { Switch } from "../components/common/Switch";
 import { Textarea } from "../components/common/Textarea";
 import { ProfileSettingsShell, type ProfileSettingsSection } from "../components/profile/ProfileSettingsShell";
 import { useAuth } from "../context/AuthContext";
+import { APP_NAME } from "../utils/brand";
 
 const notificationSettings = [
   {
@@ -32,7 +33,7 @@ const notificationSettings = [
   },
   {
     title: "Push Notifications",
-    description: "Allow browser notifications for live updates from MediSense.",
+    description: `Allow browser notifications for live updates from ${APP_NAME}.`,
     enabled: false,
   },
 ];
@@ -77,7 +78,7 @@ function SettingToggle({
 
 export function PatientSettings() {
   const { user } = useAuth();
-  const [firstName = "John", lastName = "Doe"] = (user?.name || "John Doe").split(" ");
+  const [firstName = "Rohan", lastName = "Verma"] = (user?.name || "Rohan Verma").split(" ");
 
   const sections: ProfileSettingsSection[] = [
     {
@@ -116,7 +117,7 @@ export function PatientSettings() {
                 <Input
                   id="email"
                   type="email"
-                  defaultValue={user?.email || "john.doe@example.com"}
+                  defaultValue={user?.email || "rohan.verma@example.com"}
                   className="h-11 rounded-xl bg-gray-50 pl-11"
                 />
               </div>
@@ -126,7 +127,7 @@ export function PatientSettings() {
               <Label htmlFor="phone">Phone Number</Label>
               <div className="relative">
                 <Phone className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
-                <Input id="phone" type="tel" defaultValue="+1 (555) 123-4567" className="h-11 rounded-xl bg-gray-50 pl-11" />
+                <Input id="phone" type="tel" defaultValue="+91 98765 42001" className="h-11 rounded-xl bg-gray-50 pl-11" />
               </div>
             </div>
 
@@ -137,7 +138,7 @@ export function PatientSettings() {
                 <Textarea
                   id="address"
                   rows={4}
-                  defaultValue="123 Healthcare St, Medical City, MC 12345"
+                  defaultValue="Indiranagar, Bengaluru, Karnataka"
                   className="rounded-xl bg-gray-50 pl-11 pt-3"
                 />
               </div>
@@ -257,7 +258,7 @@ export function PatientSettings() {
     {
       id: "notifications",
       label: "Notifications",
-      description: "Choose how MediSense keeps you updated.",
+      description: `Choose how ${APP_NAME} keeps you updated.`,
       icon: Bell,
       content: (
         <Card className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm">
@@ -328,8 +329,8 @@ export function PatientSettings() {
                 <Globe className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
                 <select id="language" className="h-11 w-full rounded-xl border border-gray-200 bg-gray-50 pl-10 pr-4 text-sm">
                   <option>English</option>
-                  <option>Spanish</option>
-                  <option>French</option>
+                  <option>Hindi</option>
+                  <option>Marathi</option>
                 </select>
               </div>
             </div>
@@ -337,9 +338,9 @@ export function PatientSettings() {
             <div className="space-y-2">
               <Label htmlFor="timezone">Timezone</Label>
               <select id="timezone" className="h-11 w-full rounded-xl border border-gray-200 bg-gray-50 px-4 text-sm">
-                <option>EST (UTC-5)</option>
-                <option>PST (UTC-8)</option>
-                <option>CST (UTC-6)</option>
+                <option>IST (UTC+5:30)</option>
+                <option>GST (UTC+4)</option>
+                <option>UTC</option>
               </select>
             </div>
 
@@ -361,8 +362,7 @@ export function PatientSettings() {
   return (
     <ProfileSettingsShell
       title="Profile & Settings"
-      description="Manage your account, safety controls, billing, and preferences from one patient workspace."
-      menuLabel="Patient Profile"
+      description="Manage your account, safety controls, billing, and personal preferences in one clean workspace."
       sections={sections}
       defaultSectionId="profile"
     />

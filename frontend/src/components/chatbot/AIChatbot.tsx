@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import {
   ArrowUpRight,
   Calendar,
-  Brain,
   Activity,
   BookOpen,
   ClipboardList,
@@ -10,8 +9,6 @@ import {
   MessageCircle,
   Pill,
   Send,
-  Sparkles,
-  Stethoscope,
   Users,
   X,
 } from "lucide-react";
@@ -19,6 +16,9 @@ import { Button } from "../common/Button";
 import { Input } from "../common/Input";
 import { useAuth } from "../../context/AuthContext";
 import { api } from "../../services/ApiService";
+import { CareAssistantLogo } from "../icons/CareAssistantLogo";
+import { DoctorSearchLogo } from "../icons/DoctorSearchLogo";
+import { AI_ASSISTANT_NAME, AI_CARE_GUIDE_NAME } from "../../utils/brand";
 
 interface Message {
   id: number;
@@ -28,8 +28,8 @@ interface Message {
 }
 
 const patientQuickActions = [
-  { icon: Brain, label: "Ask AI Doctor", color: "from-purple-500 to-purple-600" },
-  { icon: Stethoscope, label: "Find Doctor", color: "from-cyan-500 to-cyan-600" },
+  { icon: CareAssistantLogo, label: "Ask Care Guide", color: "from-cyan-500 to-cyan-600" },
+  { icon: DoctorSearchLogo, label: "Find Doctor", color: "from-teal-500 to-teal-600" },
   { icon: FileText, label: "Explain My Report", color: "from-blue-500 to-blue-600" },
   { icon: Pill, label: "Medicine Reminders", color: "from-teal-500 to-teal-600" },
   { icon: Calendar, label: "Book Appointment", color: "from-emerald-500 to-emerald-600" },
@@ -49,7 +49,7 @@ export function AIChatbot() {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: 1,
-      text: "Hi! I'm your MediSense AI assistant. I can help with AI doctor guidance, reports, appointments, and next care steps.",
+      text: `Hi! I'm ${AI_ASSISTANT_NAME}. I can help with care guidance, reports, appointments, and next-step planning.`,
       sender: "ai",
       timestamp: new Date(),
     },
@@ -147,7 +147,7 @@ export function AIChatbot() {
             ? "scale-95 bg-slate-950"
             : "animate-pulse-slow bg-gradient-to-br from-cyan-600 via-cyan-500 to-teal-500 hover:scale-110"
         }`}
-        aria-label="Open AI Chatbot"
+        aria-label="Open care assistant"
       >
         {isOpen ? (
           <X className="h-6 w-6 text-white" />
@@ -174,14 +174,14 @@ export function AIChatbot() {
               <div className="flex items-start gap-4">
                 <div className="relative">
                   <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-cyan-600 shadow-lg">
-                    <Sparkles className="h-6 w-6" />
+                    <CareAssistantLogo className="h-6 w-6" />
                   </div>
                   <span className="absolute bottom-0 right-0 h-3.5 w-3.5 rounded-full border-2 border-white bg-green-400" />
                 </div>
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center justify-between gap-3">
                     <div>
-                      <h3 className="text-lg font-semibold">MediSense AI</h3>
+                      <h3 className="text-lg font-semibold">{AI_ASSISTANT_NAME}</h3>
                       <p className="mt-1 flex items-center gap-1 text-xs text-cyan-100">
                         <span className="h-2 w-2 rounded-full bg-green-400 animate-pulse" />
                         Online and ready to help
@@ -192,7 +192,7 @@ export function AIChatbot() {
                     </div>
                   </div>
                   <p className="mt-3 max-w-xs text-sm leading-6 text-cyan-50/90">
-                    Ask about AI doctor guidance, appointments, reports, queues, or next care steps and I will guide you.
+                    Ask about {AI_CARE_GUIDE_NAME}, appointments, reports, queues, or next care steps and I will guide you.
                   </p>
                 </div>
               </div>
@@ -231,8 +231,8 @@ export function AIChatbot() {
                   >
                     {message.sender === "ai" && (
                       <div className="mb-1 flex items-center gap-2">
-                        <Sparkles className="h-3.5 w-3.5 text-cyan-600" />
-                        <span className="text-xs font-semibold text-cyan-600">MediSense AI</span>
+                        <CareAssistantLogo className="h-3.5 w-3.5 text-cyan-600" />
+                        <span className="text-xs font-semibold text-cyan-600">{AI_ASSISTANT_NAME}</span>
                       </div>
                     )}
                     <p className="text-sm leading-6">{message.text}</p>
@@ -251,7 +251,7 @@ export function AIChatbot() {
                 <div className="flex justify-start">
                   <div className="rounded-3xl rounded-bl-md border border-slate-200 bg-white px-4 py-3 shadow-sm">
                     <div className="flex items-center gap-2">
-                      <Sparkles className="h-3.5 w-3.5 text-cyan-600" />
+                      <CareAssistantLogo className="h-3.5 w-3.5 text-cyan-600" />
                       <div className="flex gap-1">
                         <span className="h-2 w-2 animate-bounce rounded-full bg-slate-400" style={{ animationDelay: "0ms" }} />
                         <span className="h-2 w-2 animate-bounce rounded-full bg-slate-400" style={{ animationDelay: "150ms" }} />

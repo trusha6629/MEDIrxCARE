@@ -12,6 +12,7 @@ export function useQueue() {
   const fetchQueue = async () => {
     try {
       setLoading(true);
+      setError(null);
       const data = await queueService.getQueueStatus();
       setQueue(data);
     } catch (err) {

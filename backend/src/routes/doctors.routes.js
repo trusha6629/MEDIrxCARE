@@ -73,12 +73,12 @@ router.post("/", authRequired, requireRole("admin"), async (req, res) => {
         experienceYears: Number.parseInt(experience, 10) || 0,
         location,
         availability,
-        onlineFee: 50,
-        offlineFee: 80,
+        onlineFee: 499,
+        offlineFee: 799,
         rating: 4.8,
         reviews: 0,
         patientsCount: 0,
-        nextAvailable: "Tomorrow, 10:00 AM",
+        nextAvailable: "Tomorrow, 10:30 AM",
       },
     });
 
